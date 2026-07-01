@@ -44,6 +44,8 @@ Each product card should display:
 - Price when present in XML
 - `Request Price` when no XML price is present
 - Button or link to view product details
+- Add to Cart button when a valid price exists
+- Request Price / Request Quote button when no valid price exists
 
 ### Product Details
 Product detail pages or modals should display:
@@ -55,6 +57,58 @@ Product detail pages or modals should display:
 - Category and subcategory
 - Specifications
 - Price or `Request Price`
+- Add to Cart button for priced products
+- Request Quote button for products without prices
+
+## Cart and Payment Requirements
+
+Add a professional cart and checkout flow, but make payment gateway activation configurable for later production integration.
+
+### Cart
+- Add cart functionality for products with valid XML pricing.
+- Cart should support quantity update, remove item, subtotal, estimated tax placeholder, and total.
+- Products without pricing must not be purchasable directly; show `Request Price` or `Request Quote` instead.
+- Add cart icon/summary in the header only if it does not make the header look crowded.
+- Keep checkout pages professional and responsive.
+
+### Payment Options
+Support configurable checkout payment methods:
+
+- PayPal
+- Visa
+- Mastercard
+- American Express
+- Other major cards supported by the selected payment processor
+
+### Integration Rule
+- Do not hardcode live payment credentials.
+- Add placeholder configuration fields for PayPal client ID / secret or payment links.
+- Add placeholder configuration fields for Stripe or another card processor.
+- Use sandbox/test mode by default.
+- Add clear documentation explaining where to paste live PayPal, Stripe, or payment-link credentials later.
+- If direct payment API integration is not fully implemented, create a clean `Pay Now` / `Checkout` button area where PayPal, Stripe, or hosted payment links can be connected later.
+
+### WordPress Payment Option
+For WordPress, prefer WooCommerce compatibility if practical:
+
+- Products with prices can be synced as WooCommerce products or rendered with cart-compatible buttons.
+- Payment should be compatible with WooCommerce PayPal Payments and WooCommerce Stripe Gateway.
+- Products without prices should show `Request Price`, not Add to Cart.
+
+### PHP Payment Option
+For standalone PHP:
+
+- Implement session-based cart.
+- Add checkout page.
+- Add placeholder payment configuration file such as `config/payments.example.php`.
+- Add PayPal/Stripe integration placeholders without live keys.
+
+### HTML Payment Option
+For static HTML preview:
+
+- Add demo cart UI only.
+- Use localStorage for preview cart if needed.
+- Mark payment buttons as demo placeholders.
 
 ## Data Import Requirements
 
@@ -109,6 +163,9 @@ Standalone dynamic version with:
 - Filters
 - Pagination
 - Category pages or sections
+- Session cart
+- Checkout page
+- PayPal/major card integration placeholders
 
 ### WordPress Version
 Theme-ready version for WordPress deployment.
@@ -118,12 +175,16 @@ Plugin should provide:
 
 - Admin CAP XML ZIP importer
 - Product database table or custom post type
+- Cart/checkout compatibility
+- WooCommerce compatibility where practical
 - Shortcodes:
   - `[hp_products_home]`
   - `[hp_products_catalog]`
   - `[hp_products_category category="printers"]`
   - `[hp_products_category category="laptops"]`
   - `[hp_products_category category="desktops"]`
+  - `[hp_products_cart]`
+  - `[hp_products_checkout]`
 
 ## Design Quality
 
@@ -139,6 +200,7 @@ Plugin should provide:
 - Use lazy loading for images.
 - Use accessible HTML and ARIA where appropriate.
 - Optimize for performance and SEO.
+- Cart and checkout must look premium, secure, and professional.
 
 ## Documentation Required
 Create:
@@ -146,6 +208,7 @@ Create:
 - `README.md`
 - `IMPORT_GUIDE.md`
 - `DEPLOYMENT_CHECKLIST.md`
+- `PAYMENT_SETUP.md`
 - `CHANGELOG.md`
 
 ## Acceptance Criteria
@@ -161,6 +224,11 @@ The rebuild is complete only when:
 - Product images load from XML image URLs.
 - Price appears only when available from XML.
 - Missing price shows `Request Price`.
+- Add to Cart appears only for products with valid prices.
+- Products without prices cannot be purchased directly.
+- Cart page works.
+- Checkout page has PayPal and major-card payment placeholders.
+- Payment credentials are configurable and not hardcoded.
 - XML ZIP importer works and logs results.
 - WordPress plugin activates without fatal errors.
 - PHP version runs independently.
