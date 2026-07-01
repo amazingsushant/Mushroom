@@ -24,6 +24,19 @@
 - Confirm missing prices show `Request Price`.
 - Confirm fake prices are not displayed.
 
+## Cart and Payment Checks
+
+- Confirm `Add to Cart` appears only for products with valid XML prices.
+- Confirm products without prices show `Request Price` or `Request Quote`.
+- Confirm cart item quantity update works.
+- Confirm remove item works.
+- Confirm subtotal and total display correctly.
+- Confirm checkout page is responsive.
+- Confirm PayPal option is shown as configurable/sandbox until live credentials are added.
+- Confirm Visa, Mastercard, and American Express card support is shown through the selected payment processor.
+- Confirm no live payment credentials are committed to GitHub.
+- Confirm payment configuration is documented in `PAYMENT_SETUP.md`.
+
 ## Responsive Testing
 
 Test on:
@@ -42,6 +55,9 @@ Test on:
 - Run importer with XML ZIP.
 - Add shortcodes to pages as needed.
 - Test frontend catalog.
+- Test cart shortcode/page if enabled.
+- Test checkout shortcode/page if enabled.
+- Configure WooCommerce PayPal/Stripe if using WooCommerce.
 - Check PHP error logs.
 
 ## PHP Standalone Deployment
@@ -51,6 +67,8 @@ Test on:
 - Upload XML ZIP through importer.
 - Confirm product JSON/database is generated.
 - Test search/filter/pagination.
+- Test session cart.
+- Configure `config/payments.php` from `config/payments.example.php` when ready.
 
 ## SEO Checks
 
